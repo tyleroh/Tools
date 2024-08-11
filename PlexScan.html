@@ -100,25 +100,25 @@
     <div class="container">
         <h2>PlexScan</h2>
         <form id="searchForm" onsubmit="return false;">
-            <label for="searchInput">输入文件夹名称:</label>
+            <label for="searchInput">添加文件夹:</label>
             <input type="text" id="searchInput" name="searchInput" required>
 
             <div class="radio-group">
-                <p>选择媒体库:</p>
+                <p>选择资料库:</p>
                 <div class="radio-inline">
-                    <input type="radio" id="movie" name="resourceType" value="a.com" checked>
+                    <input type="radio" id="movie" name="resourceType" value="192.168.100.1:32400/library/sections/3/refresh?path=/mnt/CloudNAS/CloudDrive/115/我的接收/影视/电影" checked>
                     <label for="movie">电影</label>
                 </div>
                 <div class="radio-inline">
-                    <input type="radio" id="animation" name="resourceType" value="b.com">
+                    <input type="radio" id="animation" name="resourceType" value="192.168.100.1:32400/library/sections/4/refresh?path=/mnt/CloudNAS/CloudDrive/115/我的接收/影视/Animated film">
                     <label for="animation">动画片</label>
                 </div>
                 <div class="radio-inline">
-                    <input type="radio" id="tv" name="resourceType" value="c.com">
+                    <input type="radio" id="tv" name="resourceType" value="192.168.100.1:32400/library/sections/5/refresh?path=/mnt/CloudNAS/CloudDrive/115/我的接收/影视/电视剧">
                     <label for="tv">电视剧</label>
                 </div>
                 <div class="radio-inline">
-                    <input type="radio" id="other" name="resourceType" value="d.com">
+                    <input type="radio" id="other" name="resourceType" value="192.168.100.1:32400/library/sections/3/refresh?path=/mnt/CloudNAS/CloudDrive/115/我的接收/影视/其他">
                     <label for="other">其他</label>
                 </div>
             </div>
@@ -131,13 +131,13 @@
         function search() {
             var resourceType = document.querySelector('input[name="resourceType"]:checked').value;
             var searchInput = document.getElementById("searchInput").value;
-            var token = "tokenxx";
+            var token = "&X-Plex-Token=SZs3x-D4XxZLjfAznvzo";
 
             if (searchInput) {
                 var url = "http://" + resourceType + "/" + searchInput + "/" + token;
                 window.location.href = url;
             } else {
-                alert("请输入文件夹名称！");
+                alert("请输入需要入库的文件夹！");
             }
         }
     </script>
