@@ -1,0 +1,4 @@
+payload:
+  # 内容：自定义代理
+  - DOMAIN-SUFFIX,plex.tv
+  - DOMAIN-SUFFIX,hdhive.org
