@@ -1,4 +1,4 @@
-#SUBSCRIBED https://raw.githubusercontent.com/Coldvvater/Mononoke/master/Stash/Override/Adblock/YouTubeAds.stoverride
+#SUBSCRIBED https://raw.githubusercontent.com/tylerxuv/Tools/main/Stash/Override/YouTubeAds.stoverride
 name: YouTube去广告
 desc: 去除 YouTube 广告 (IOS >= 15)
 # author: Maasea
