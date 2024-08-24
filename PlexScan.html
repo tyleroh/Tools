@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -69,30 +68,53 @@
             font-size: 20px;
             cursor: pointer;
             width: 100%;
+            margin-top: 10px;
+            transition: background-color 0.3s;
         }
         button:hover {
             background-color: #1666c1;
         }
-
-        /* Further optimized design for mobile */
-        @media (max-width: 480px) {
-            h2 {
-                font-size: 24px;
-            }
-            label {
-                font-size: 16px;
-            }
-            input[type="text"] {
-                font-size: 16px;
-                padding: 12px;
-            }
-            .radio-group label {
-                font-size: 14px;
-            }
-            button {
-                font-size: 18px;
-                padding: 12px 20px;
-            }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+        .modal-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+        .modal button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .modal .confirm {
+            background-color: #1a73e8;
+            color: white;
+        }
+        .modal .cancel {
+            background-color: #f5f5f5;
+            color: #333;
         }
     </style>
 </head>
@@ -101,11 +123,11 @@
         <h2>PlexScan</h2>
         <form id="searchForm" onsubmit="return false;">
             <label for="searchInput">添加文件夹:</label>
-            <input type="text" id="searchInput" name="searchInput" required>
+            <input type="text" id="searchInput" name="searchInput">
 
             <div class="radio-group">
                 <p>选择资料库:</p>
-                <div class="radio-inline">
+               <div class="radio-inline">
                     <input type="radio" id="movie" name="resourceType" value="192.168.100.1:32400/library/sections/3/refresh?path=/mnt/CloudNAS/CloudDrive/115/我的接收/影视/电影" checked>
                     <label for="movie">电影</label>
                 </div>
@@ -131,18 +153,44 @@
         </form>
     </div>
 
+    <!-- Modal -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <p>未指定文件，确认扫描整个资料库吗？</p>
+            <div class="modal-buttons">
+                <button class="confirm" onclick="confirmScan()">确认</button>
+                <button class="cancel" onclick="closeModal()">返回</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         function search() {
             var resourceType = document.querySelector('input[name="resourceType"]:checked').value;
             var searchInput = document.getElementById("searchInput").value;
             var token = "&X-Plex-Token=SZs3x-D4XxZLjfAznvzo";
 
-            if (searchInput) {
+            if (searchInput.trim() === "") {
+                openModal();
+            } else {
                 var url = "http://" + resourceType + "/" + searchInput + "/" + token;
                 window.location.href = url;
-            } else {
-                alert("请输入需要入库的文件夹！");
             }
+        }
+
+        function openModal() {
+            document.getElementById("confirmationModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("confirmationModal").style.display = "none";
+        }
+
+        function confirmScan() {
+            var resourceType = document.querySelector('input[name="resourceType"]:checked').value;
+            var token = "&X-Plex-Token=SZs3x-D4XxZLjfAznvzo";
+            var url = "http://" + resourceType + "/" + token;
+            window.location.href = url;
         }
     </script>
 </body>
