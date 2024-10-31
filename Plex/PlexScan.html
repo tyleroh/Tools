@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlexScan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 450px;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #1a73e8;
+            font-size: 28px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+            text-align: left;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 18px;
+        }
+        .radio-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .radio-group label {
+            margin-right: 15px;
+            font-size: 16px;
+            color: #666;
+        }
+        .radio-inline {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        button {
+            background-color: #1a73e8;
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 20px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #1666c1;
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+        .modal-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+        .modal button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .modal .confirm {
+            background-color: #1a73e8;
+            color: white;
+        }
+        .modal .cancel {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>PlexScan</h2>
+        <form id="searchForm" onsubmit="return false;">
+            <label for="searchInput">添加文件夹:</label>
+            <input type="text" id="searchInput" name="searchInput">
+
+            <div class="radio-group">
+                <p>选择资料库:</p>
+               <div class="radio-inline">
+                    <input type="radio" id="movie" name="resourceType" value="192.168.3.100:32400/library/sections/3/refresh?path=/Cd2/CloudDrive/115/我的接收/影视/电影" checked>
+                    <label for="movie">电影</label>
+                </div>
+                <div class="radio-inline">
+                    <input type="radio" id="animation" name="resourceType" value="192.168.3.100:32400/library/sections/4/refresh?path=/Cd2/CloudDrive/115/我的接收/影视/Animated film">
+                    <label for="animation">动画</label>
+                </div>
+                <div class="radio-inline">
+                    <input type="radio" id="tv" name="resourceType" value="192.168.3.100:32400/library/sections/5/refresh?path=/Cd2/CloudDrive/115/我的接收/影视/电视剧">
+                    <label for="tv">电视剧</label>
+                </div>
+                <div class="radio-inline">
+                    <input type="radio" id="doco" name="resourceType" value="192.168.3.100:32400/library/sections/7/refresh?path=/Cd2/CloudDrive/115/我的接收/影视/纪录片">
+                    <label for="doco">纪录片</label>
+                </div>
+                <div class="radio-inline">
+                    <input type="radio" id="music" name="resourceType" value="192.168.3.100:32400/library/sections/6/refresh?path=/Cd2/CloudDrive/115/我的接收/音乐">
+                    <label for="music">音乐</label>
+                </div>
+            </div>
+
+            <button type="submit" onclick="search()">立即扫库</button>
+        </form>
+    </div>
+
+    <!-- Modal -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <p>未指定文件，确认扫描整个资料库吗？</p>
+            <div class="modal-buttons">
+                <button class="confirm" onclick="confirmScan()">确认</button>
+                <button class="cancel" onclick="closeModal()">返回</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function search() {
+            var resourceType = document.querySelector('input[name="resourceType"]:checked').value;
+            var searchInput = document.getElementById("searchInput").value;
+            var token = "&X-Plex-Token=SZs3x-D4XxZLjfAznvzo";
+
+            if (searchInput.trim() === "") {
+                openModal();
+            } else {
+                var url = "http://" + resourceType + "/" + searchInput + "/" + token;
+                window.location.href = url;
+            }
+        }
+
+        function openModal() {
+            document.getElementById("confirmationModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("confirmationModal").style.display = "none";
+        }
+
+        function confirmScan() {
+            var resourceType = document.querySelector('input[name="resourceType"]:checked').value;
+            var token = "&X-Plex-Token=SZs3x-D4XxZLjfAznvzo";
+            var url = "http://" + resourceType + "/" + token;
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>
