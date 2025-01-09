@@ -8,6 +8,7 @@ DOMAIN-SUFFIX,movie-pilot.org
 DOMAIN-SUFFIX,hanime1.com
 
 # Copilot
+DOMAIN,copilot.bingviz.microsoftapp.net
 DOMAIN,access-point.cloudmessaging.edge.microsoft.com
 DOMAIN,sydney.bing.com
 DOMAIN,browser.pipe.aria.microsoft.com
