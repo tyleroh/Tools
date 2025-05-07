@@ -4,3 +4,11 @@ DOMAIN-SUFFIX,ugnas.cloud
 DOMAIN-SUFFIX,ug.link
 DOMAIN-SUFFIX,115.com
 DOMAIN-SUFFIX,200588.xyz
+
+# Apple
+DOMAIN-SUFFIX,push.apple.com
+DOMAIN,identity.apple.com
+DOMAIN,account.apple.com
+DOMAIN,idmsa.apple.com
+DOMAIN,gsa.apple.com
+DOMAIN,ppq.apple.com
