@@ -1,4 +1,5 @@
 # 自定义代理
+DOMAIN-SUFFIX,tmdb.org
 DOMAIN-SUFFIX,qichiyu.com
 DOMAIN-SUFFIX,hdhive.online
 DOMAIN-SUFFIX,hdhive.com
