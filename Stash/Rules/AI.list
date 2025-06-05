@@ -1,14 +1,4 @@
-#PassWall AIGC
-DOMAIN-SUFFIX,aistudio.google.com
-DOMAIN-SUFFIX,ai.google.dev
-DOMAIN-SUFFIX,gemini.google.com
-DOMAIN-SUFFIX,generativelanguage.googleapis.com
-DOMAIN-SUFFIX,makersuite.google.com
-DOMAIN-SUFFIX,alkalicore-pa.clients6.google.com
-DOMAIN-SUFFIX,alkalimakersuite-pa.clients6.google.com
-DOMAIN-SUFFIX,deepmind.com
-DOMAIN-SUFFIX,deepmind.google
-DOMAIN-SUFFIX,geller-pa.googleapis.com
-DOMAIN-SUFFIX,proactivebackend-pa.googleapis.com
-DOMAIN-SUFFIX,generativeai.google
-DOMAIN-SUFFIX,meta.ai
+#Home Lan
+IP-CIDR,192.168.1.0/24
+IP-CIDR,192.168.2.0/24
+IP-CIDR,192.168.3.0/24
