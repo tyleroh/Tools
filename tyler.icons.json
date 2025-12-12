@@ -3,10 +3,6 @@
   "description": "收集一些常用图标",
   "icons": [
     {
-      "name": "WeChat.png",
-      "url": "https://raw.githubusercontent.com/tyleroh/Tools/main/icon/WeChat.png"
-    },
-    {
       "name": "wsgw.png",
       "url": "https://raw.githubusercontent.com/tyleroh/Tools/main/icon/wsgw.png"
     }
