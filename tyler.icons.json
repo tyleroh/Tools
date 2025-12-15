@@ -3,6 +3,10 @@
   "description": "收集一些常用图标",
   "icons": [
     {
+      "name": "夸克.png",
+      "url": "https://raw.githubusercontent.com/tyleroh/Tools/main/icon/夸克.png"
+    },
+    {
       "name": "wsgw.png",
       "url": "https://raw.githubusercontent.com/tyleroh/Tools/main/icon/wsgw.png"
     }
