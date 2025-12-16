@@ -1,0 +1,10 @@
+{
+  "name": "tyler图标订阅",
+  "description": "收集一些常用图标",
+  "icons": [
+    {
+      "name": "网上国网.png",
+      "url": "https://raw.githubusercontent.com/tyleroh/Tools/main/icon/网上国网.png"
+    }
+  ]
+}
