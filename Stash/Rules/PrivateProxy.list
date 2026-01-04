@@ -28,6 +28,7 @@ DOMAIN-SUFFIX,himalaya.com
 DOMAIN-SUFFIX,workers.dev
 DOMAIN-SUFFIX,imarkr.com
 DOMAIN-SUFFIX,whatshub.top
+DOMAIN-SUFFIX,greasyfork.org
 
 # Copilot
 DOMAIN,gateway-copilot.bingviz.microsoftapp.net
