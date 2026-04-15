@@ -1,4 +1,5 @@
 # 自定义代理
+DOMAIN-SUFFIX,cloudflare.com
 DOMAIN-SUFFIX,audiences.me
 DOMAIN-SUFFIX,themoviedb.org
 DOMAIN-SUFFIX,tmdb.org
