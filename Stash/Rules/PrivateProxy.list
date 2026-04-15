@@ -1,5 +1,7 @@
 # 自定义代理
 DOMAIN-SUFFIX,cloudflare.com
+DOMAIN-SUFFIX,workers.dev
+DOMAIN-SUFFIX,pages.dev
 DOMAIN-SUFFIX,audiences.me
 DOMAIN-SUFFIX,themoviedb.org
 DOMAIN-SUFFIX,tmdb.org
@@ -21,12 +23,10 @@ DOMAIN-SUFFIX,wikimedia.org
 DOMAIN-SUFFIX,sleazyfork.org
 DOMAIN-SUFFIX,sehuatang.org
 DOMAIN-SUFFIX,do-mi.cc
-DOMAIN-SUFFIX,pages.dev
 DOMAIN-SUFFIX,v2ex.com
 DOMAIN-SUFFIX,fscarmen.com
 DOMAIN-SUFFIX,hostloc.com
 DOMAIN-SUFFIX,himalaya.com
-DOMAIN-SUFFIX,workers.dev
 DOMAIN-SUFFIX,imarkr.com
 DOMAIN-SUFFIX,whatshub.top
 DOMAIN-SUFFIX,greasyfork.org
