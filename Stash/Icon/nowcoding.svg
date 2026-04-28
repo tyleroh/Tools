@@ -1,0 +1,13 @@
+<svg width="800" height="200" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <title>Layer 1</title>
+  <rect x="19" y="40" rx="30" ry="30" width="120" height="120" fill="#E6F0FF" stroke-width="4" id="svg_1" stroke="#3A7BFF"/>
+  <rect x="39" y="70" rx="15" ry="15" width="80" height="60" fill="#0A1A2F" id="svg_2"/>
+  <rect x="54" y="90" width="15" height="15" fill="#8FF" id="svg_3"/>
+  <rect x="89" y="90" width="15" height="15" fill="#8FF" id="svg_4"/>
+  <line x1="79" y1="40" x2="79" y2="20" stroke="#3A7BFF" stroke-width="3" id="svg_5"/>
+  <circle cx="79" cy="15" r="5" fill="#3A7BFF" id="svg_6"/>
+  <text style="cursor: move;" x="179" y="130" fill="#0A1A2F" font-size="100" font-family="'Alumni Sans'" id="svg_7" stroke="null" font-weight="bold">NowCoding</text>
+ </g>
+
+</svg>
