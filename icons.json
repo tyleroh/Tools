@@ -3,6 +3,10 @@
   "description": "收集一些常用图标",
   "icons": [
     {
+      "name": "信易知.png",
+      "url": "https://raw.githubusercontent.com/tyleroh/Tools/main/icon/信易知.png"
+    },
+    {
       "name": "网上国网.png",
       "url": "https://raw.githubusercontent.com/tyleroh/Tools/main/icon/网上国网.png"
     },
