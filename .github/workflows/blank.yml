@@ -6,10 +6,10 @@ permissions:
 on:
   push:
     paths:
-      - 'icon/**' # 监视 icons 文件夹及其子文件夹下的内容
+      - 'icon/120px/**' # 监视文件夹及其子文件夹下的内容
   pull_request:
     paths:
-      - 'icon/**' # 监视 icons 文件夹及其子文件夹下的内容
+      - 'icon/120px/**' # 监视文件夹及其子文件夹下的内容
   workflow_dispatch:
 
 jobs:
