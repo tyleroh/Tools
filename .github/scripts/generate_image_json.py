@@ -2,7 +2,7 @@ import os
 import json
 
 def generate_json():
-    image_folder = 'icon'
+    image_folder = 'icon/120px'
     json_data = {
         "name": "tyler图标订阅",
         "description": "收集一些常用图标",
