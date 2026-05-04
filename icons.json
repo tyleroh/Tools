@@ -3,10 +3,6 @@
   "description": "收集一些常用图标",
   "icons": [
     {
-      "name": "Telegram.png",
-      "url": "https://raw.githubusercontent.com/tyleroh/Tools/main/icon/120px/Telegram.png"
-    },
-    {
       "name": "知乎.png",
       "url": "https://raw.githubusercontent.com/tyleroh/Tools/main/icon/120px/知乎.png"
     },
