@@ -1,0 +1,13 @@
+#!name=Telegram Link Redirect
+#!desc=Telegram链接跳转Swiftgram、Telegram、Turrit
+#!author=Tyler
+
+#!arguments=app
+#!argument.app=swiftgram
+#!argument.app-desc=跳转目标，可填写：swiftgram / telegram / turrit
+
+[Script]
+http-request ^https?:\/\/t\.me\/.+ script-path=https://raw.githubusercontent.com/tyleroh/Tools/main/Surge/Module/Telegram/Telegram.js, requires-body=false, argument=app=%app%
+
+[MITM]
+hostname = %APPEND% t.me, *.t.me
