@@ -8,9 +8,13 @@ if (!match) {
 
 const username = match[1];
 
-const app = $argument || "swiftgram";
+let app = "swiftgram";
 
-let scheme = "";
+if ($argument && $argument.includes("app=")) {
+  app = $argument.split("app=")[1];
+}
+
+let scheme;
 
 switch (app.toLowerCase()) {
   case "telegram":
@@ -24,6 +28,7 @@ switch (app.toLowerCase()) {
   case "swiftgram":
   default:
     scheme = "sg://resolve?domain=";
+    break;
 }
 
 $done({
