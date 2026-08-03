@@ -10,8 +10,9 @@ const username = match[1];
 
 let app = "swiftgram";
 
-if ($argument && $argument.includes("app=")) {
-  app = $argument.split("app=")[1];
+if ($argument) {
+  const params = new URLSearchParams($argument);
+  app = params.get("app") || "swiftgram";
 }
 
 let scheme;
