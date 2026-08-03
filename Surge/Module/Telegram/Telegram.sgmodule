@@ -3,7 +3,7 @@
 #!author=Tyler
 
 #!arguments=app:swiftgram
-#!arguments-desc=app=默认跳转swiftgram，可选telegram / turrit
+#!arguments-desc=app:\n默认跳转swiftgram，可选telegram / turrit
 
 [Script]
 http-request ^https?:\/\/t\.me\/.+ script-path=https://raw.githubusercontent.com/tyleroh/Tools/main/Surge/Module/Telegram/Telegram.js, requires-body=false, argument=app={{{app}}}
