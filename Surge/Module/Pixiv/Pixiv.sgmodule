@@ -1,8 +1,14 @@
-#!name=Pixiv Premium
-#!desc=Pixiv去广告
+#!name=Pixiv去广告
+#!desc=去除Pixiv应用内广告
+#!tag=去广告
+#!icon=https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/04ProxySoft/pixiv(1).png
 
-[URL Rewrite]
-^https:\/\/oauth\.secure\.pixiv\.net\/auth\/token response-body-json-replace response.user.is_premium true
+[Rule]
+DOMAIN-SUFFIX,ads-pixiv.net,REJECT
+DOMAIN,pixiv.org,REJECT
+
+[Rewrite]
+^https:\/\/oauth\.secure\.pixiv\.net\/auth\/token response-body-json-replace response.user.is_premium true user.is_premium true
 
 [MITM]
 hostname = oauth.secure.pixiv.net
