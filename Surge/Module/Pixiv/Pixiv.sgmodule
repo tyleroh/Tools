@@ -1,0 +1,8 @@
+#!name=Pixiv Premium
+#!desc=Pixiv去广告
+
+[URL Rewrite]
+^https:\/\/oauth\.secure\.pixiv\.net\/auth\/token response-body-json-replace response.user.is_premium true
+
+[MITM]
+hostname = oauth.secure.pixiv.net
