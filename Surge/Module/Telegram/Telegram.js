@@ -1,6 +1,7 @@
 const url = $request.url;
 
-const match = url.match(/^https?:\/\/t\.me\/([^\/\?]+)/);
+// 支持 t.me / telegram.me / telegram.dog
+const match = url.match(/^https?:\/\/(?:t\.me|telegram\.me|telegram\.dog)\/([^\/\?]+)/);
 
 if (!match) {
   $done({});
@@ -8,24 +9,21 @@ if (!match) {
 
 const username = match[1];
 
+// 解析模块参数，默认 swiftgram
 let app = "swiftgram";
-
 if ($argument) {
   const params = new URLSearchParams($argument);
   app = params.get("app") || "swiftgram";
 }
 
 let scheme;
-
 switch (app.toLowerCase()) {
   case "telegram":
     scheme = "tg://resolve?domain=";
     break;
-
   case "turrit":
     scheme = "turrit://resolve?domain=";
     break;
-
   case "swiftgram":
   default:
     scheme = "sg://resolve?domain=";
