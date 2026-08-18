@@ -1,0 +1,14 @@
+#!name=Pixiv去广告
+#!desc=去除Pixiv应用内广告
+
+[Rule]
+# 去除小说推荐页广告
+DOMAIN-SUFFIX,ads-pixiv.net,REJECT
+DOMAIN,pixiv.org,REJECT
+
+[Body Rewrite]
+# 修改 Premium 状态
+http-response ^https:\/\/oauth\.secure\.pixiv\.net\/auth\/token "\"is_premium\"\s*:\s*false" "\"is_premium\":true"
+
+[MITM]
+hostname = %APPEND% oauth.secure.pixiv.net
