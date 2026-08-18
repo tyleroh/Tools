@@ -1,0 +1,12 @@
+#!name = Telegram Link Redirect
+#!desc = Telegram链接跳转Swiftgram、Telegram、Turrit
+#!author = Tyler
+
+#!arguments = scheme:sg
+#!arguments-desc = scheme: sg(swiftgram) / tg(telegram) / turrit
+
+[URL Rewrite]
+^https?:\/\/(?:t\.me|telegram\.me|telegram\.dog)\/([^\/\?]+) 302 {{{scheme}}}://resolve?domain=$1
+
+[MITM]
+hostname = %APPEND% t.me, *.t.me, telegram.me, *.telegram.me, telegram.dog, *.telegram.dog
