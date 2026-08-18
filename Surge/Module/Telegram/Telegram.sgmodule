@@ -1,12 +1,12 @@
-#!name=Telegram Link Redirect
-#!desc=Telegram链接跳转Swiftgram、Telegram、Turrit
-#!author=Tyler
+#!name = Telegram Link Redirect
+#!desc = Telegram链接跳转Swiftgram、Telegram、Turrit
+#!author = Tyler
 
-#!arguments=app:swiftgram
-#!arguments-desc=app: swiftgram(默认) / telegram / turrit
+#!arguments = app:swiftgram
+#!arguments-desc = app: swiftgram(默认) / telegram / turrit
 
 [Script]
-http-request ^https?:\/\/t\.me\/.+ script-path=https://raw.githubusercontent.com/tyleroh/Tools/main/Surge/Module/Telegram/Telegram.js, requires-body=false, argument=app={{{app}}}
+Telegram Redirect = type=http-request, pattern=^https?:\/\/(?:t\.me|telegram\.me|telegram\.dog)\/.+, requires-body=false, script-path=https://raw.githubusercontent.com/tyleroh/Tools/main/Surge/Module/Telegram/Telegram.js, argument=app={{{app}}}
 
 [MITM]
-hostname = %APPEND% t.me, *.t.me
+hostname = %APPEND% t.me, *.t.me, telegram.me, *.telegram.me, telegram.dog, *.telegram.dog
