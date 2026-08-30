@@ -1,12 +1,12 @@
 name: PingMe签到
-description: 默认每3小时签到一次｜支持签到参数抓取｜代理策略可自由填写｜自动同步 mickeu/Egern 原版更新
+description: 默认每4小时签到一次｜支持签到参数抓取｜代理策略可自由填写｜自动同步 mickeu/Egern 原版更新
 compat_arguments:
-  arg3: '0 */3 * * *'
+  arg3: '0 */4 * * *'
   PROXY: DIRECT
 compat_arguments_schema:
   arg3:
     name: PM定时
-    default_value: '0 */3 * * *'
+    default_value: '0 */4 * * *'
   PROXY:
     name: 代理策略
     description: 输入策略组名称
