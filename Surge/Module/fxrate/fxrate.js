@@ -92,7 +92,13 @@ export default async function(ctx) {
         direction: "row",
         alignItems: "center",
         children: [
-          { type: "text", text: item.name, font: { size: "subheadline", weight: "medium" }, textColor: "#FFFFFF", flex: 1 },
+          {
+            type: "text",
+            text: item.name,
+            font: { size: "subheadline", weight: "medium" },
+            textColor: { light: "#000000", dark: "#FFFFFF" },
+            flex: 1
+          },
           { type: "text", text: item.rate, font: { size: "subheadline", weight: "bold" }, textColor: "#34C759" }
         ]
       });
@@ -114,7 +120,7 @@ export default async function(ctx) {
         alignItems: "start",
         children: [
           { type: "stack", direction: "column", children: leftColChildren, flex: 1 },
-          { type: "spacer", length: 24 }, // 左右两列的列间距
+          { type: "spacer", length: 24 },
           { type: "stack", direction: "column", children: rightColChildren, flex: 1 }
         ]
       });
@@ -127,8 +133,19 @@ export default async function(ctx) {
           direction: "row",
           alignItems: "center",
           children: [
-            { type: "text", text: item.name, font: { size: isSmall ? "footnote" : "subheadline", weight: "medium" }, textColor: "#FFFFFF", flex: 1 },
-            { type: "text", text: item.rate, font: { size: isSmall ? "footnote" : "subheadline", weight: "bold" }, textColor: "#34C759" }
+            {
+              type: "text",
+              text: item.name,
+              font: { size: isSmall ? "footnote" : "subheadline", weight: "medium" },
+              textColor: { light: "#000000", dark: "#FFFFFF" },
+              flex: 1
+            },
+            {
+              type: "text",
+              text: item.rate,
+              font: { size: isSmall ? "footnote" : "subheadline", weight: "bold" },
+              textColor: "#34C759"
+            }
           ]
         });
         if (index < list.length - 1) contentChildren.push({ type: "spacer", length: rowSpacing });
@@ -156,7 +173,12 @@ export default async function(ctx) {
         gap: 6,
         children: [
           { type: "image", src: "sf-symbol:banknote.fill", color: "#FF9500", width: 16, height: 16 },
-          { type: "text", text: titleText, font: { size: "headline", weight: "bold" }, textColor: "#FFFFFF" }
+          {
+            type: "text",
+            text: titleText,
+            font: { size: "headline", weight: "bold" },
+            textColor: { light: "#000000", dark: "#FFFFFF" }
+          }
         ]
       },
       { type: "spacer", length: titleSpacing },
