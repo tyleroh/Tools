@@ -1,0 +1,11 @@
+#!name=Surge Monitor
+#!desc=监控 Surge 运行状态及流量统计
+#!category=工具
+#!arguments=key:surgeweb,port:6171
+#!arguments-desc=key:Surge HTTP API 的 Key\nport:Surge HTTP API 的端口号
+
+[Panel]
+SurgeMonitor = title="Surge Monitor",content="正在获取数据...",style=info,script-name=surge-monitor,update-interval=10
+
+[Script]
+surge-monitor = type=generic,script-path=https://raw.githubusercontent.com/tyleroh/Tools/main/Surge/Module/surgemonitor/surgemonitor.js,argument=key={{{key}}}&port={{{port}}}
