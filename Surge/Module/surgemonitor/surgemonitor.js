@@ -191,8 +191,8 @@ $httpClient.get(
         const upload = sumMetrics(metrics, "surge_interface_out_bytes_total");
 
         const content = [
-            "内存占用：  " + formatBytes(memory ? memory.value : NaN),
-            "运行时间：  " + formatUptime(uptime ? uptime.value : NaN),
+            "内存占用：" + formatBytes(memory ? memory.value : NaN),
+            "运行时间：" + formatUptime(uptime ? uptime.value : NaN),
             "↓ " + formatBytes(download) + "     ↑ " + formatBytes(upload),
             "Surge " + version + " · Build " + build + " · " + system
         ].join("\n");
