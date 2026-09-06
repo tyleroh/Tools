@@ -1,6 +1,7 @@
 #!name=扫描全能王签到
 #!desc=扫描全能王定时签到
 #!author=MaYIHEI
+#!category=工具
 #!icon=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/camscanner.png
 #!arguments=cron:15 10 * * *
 #!arguments-desc=📌 参数说明\n\ncron: 签到定时任务的 cron 表达式\n默认每天上午 10:15 执行（15 10 * * *）
