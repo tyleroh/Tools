@@ -1,0 +1,10 @@
+#!name=WPS签到
+#!desc=WPS定时签到
+#!author=MaYIHEI
+#!category=工具
+#!icon=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/wps.png
+#!arguments=cron:0 10 * * *
+#!arguments-desc=📌 参数说明\n\ncron: 签到定时任务的 cron 表达式\n默认每天上午 10:00 执行（0 10 * * *）
+
+[Script]
+WPS签到 = type=cron,cronexp="{{{cron}}}",timeout=120,script-path=https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/wps/wps.js
