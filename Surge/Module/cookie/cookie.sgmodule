@@ -5,13 +5,13 @@
 #!icon=https://raw.githubusercontent.com/tyleroh/Tools/main/icon/120px/Cookie.png
 
 [Script]
-# === 扫描全能王 ===
+# === 扫描全能王 === api-cs.intsig.net
 扫描全能王 Cookie = type=http-request,pattern=^https:\/\/api-cs\.intsig\.net\/user\/cs\/get_user_attribute,requires-body=false,max-size=0,script-path=https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/camscanner/camscanner.cookie.js
 
-# === WPS ===
+# === WPS === personal-act.wps.cn
 WPS Cookie = type=http-request,pattern=^https:\/\/personal-act\.wps\.cn\/activity-rubik\/activity\/page_info,requires-body=false,max-size=0,script-path=https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/wps/wps.cookie.js
 
-# === 小蚕惠生活 ===
+# === 小蚕惠生活 === gw.xiaocantech.com
 小蚕惠生活 Cookie = type=http-response,pattern=^https:\/\/gw\.xiaocantech\.com\/rpc,requires-body=true,script-path=https://gist.githubusercontent.com/Sliverkiss/27c601d97a3f8960b212e5cac5b6c470/raw/xcbwc.js
 
 [MITM]
