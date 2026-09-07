@@ -14,9 +14,6 @@ WPS Cookie = type=http-request,pattern=^https:\/\/personal-act\.wps\.cn\/activit
 # === 小蚕惠生活 === gw.xiaocantech.com
 小蚕惠生活 Cookie = type=http-response,pattern=^https:\/\/gw\.xiaocantech\.com\/rpc,requires-body=true,script-path=https://gist.githubusercontent.com/Sliverkiss/27c601d97a3f8960b212e5cac5b6c470/raw/xcbwc.js
 
-# === 我是测试 === example.com
-我是测试 Cookie = xxx hello.cookie.js
-
 [MITM]
 # 所有需要抓包的域名，逗号隔开
-hostname = %APPEND% api-cs.intsig.net, personal-act.wps.cn, gw.xiaocantech.com, example.com
+hostname = %APPEND% api-cs.intsig.net, personal-act.wps.cn, gw.xiaocantech.com
