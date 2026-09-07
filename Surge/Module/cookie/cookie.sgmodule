@@ -11,6 +11,9 @@
 # === WPS ===
 WPS Cookie = type=http-request,pattern=^https:\/\/personal-act\.wps\.cn\/activity-rubik\/activity\/page_info,requires-body=false,max-size=0,script-path=https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/wps/wps.cookie.js
 
+# === 小蚕惠生活 ===
+小蚕惠生活 Cookie = type=http-response,pattern=^https:\/\/gw\.xiaocantech\.com\/rpc,requires-body=true,script-path=https://gist.githubusercontent.com/Sliverkiss/27c601d97a3f8960b212e5cac5b6c470/raw/xcbwc.js
+
 [MITM]
 # 所有需要抓包的域名，逗号隔开
-hostname = %APPEND% api-cs.intsig.net, personal-act.wps.cn
+hostname = %APPEND% api-cs.intsig.net, personal-act.wps.cn, gw.xiaocantech.com
