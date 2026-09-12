@@ -1,8 +1,7 @@
 name: Sync Rules
 on:
   schedule:
-    - cron: '0 4 * * 0' # 北京时间每周日凌晨4点执行
-      timezone: 'Asia/Shanghai'
+    - cron: '12 21 * * 6' # 北京时间每周日凌晨4点执行
   workflow_dispatch: # 允许网页端手动点击运行
 
 permissions:
