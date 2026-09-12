@@ -1,0 +1,119 @@
+name: Sync and Merge Rules
+on:
+  schedule:
+    - cron: '0 4 * * 0' # 北京时间每周日凌晨4点执行
+      timezone: 'Asia/Shanghai'
+  workflow_dispatch: # 允许网页端手动点击运行
+
+permissions:
+  contents: write # 必须：授予推送代码的权限
+
+jobs:
+  merge-rules:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Fetch, Deduplicate and Merge Rules
+        run: |
+          # 你仓库中文件的相对路径
+          TARGET_FILE="Surge/Rules/AI.list"
+          
+          # 动态生成 Python 处理脚本
+          cat << 'EOF' > merge_script.py
+          import urllib.request
+          import sys
+          import os
+
+          target_file = sys.argv[1]
+          
+          # 【追踪列表】以后如果有新的规则链接，直接加在这个列表里，用逗号隔开即可
+          urls = [
+              "https://github.com/fmz200/wool_scripts/raw/main/Loon/rule/AI.list"
+          ]
+          
+          seen_rules = set()
+          extracted_lines = []
+          
+          # 1. 遍历所有链接，获取并去重
+          for url in urls:
+              try:
+                  req = urllib.request.urlopen(url)
+                  content = req.read().decode('utf-8')
+                  
+                  in_header = True
+                  for line in content.splitlines():
+                      line = line.strip()
+                      if not line:
+                          if not in_header:
+                              extracted_lines.append("")
+                          continue
+                          
+                      # 剥离 Loon/Surge 的专属配置头部和无用分割线
+                      if line.startswith('#!') or set(line) == {'#'}:
+                          continue
+                      else:
+                          in_header = False
+                      
+                      # 如果是注释（如分类标签 # OpenAI），直接保留
+                      if line.startswith('#'):
+                          extracted_lines.append(line)
+                      else:
+                          # 核心去重逻辑：如果这条规则没见过，才加入列表
+                          if line not in seen_rules:
+                              seen_rules.add(line)
+                              extracted_lines.append(line)
+                              
+              except Exception as e:
+                  print(f"Error fetching {url}: {e}")
+                  sys.exit(1)
+
+          # 简单清理一下连续的空行，让排版更好看
+          clean_lines = []
+          for line in extracted_lines:
+              if line == "" and (not clean_lines or clean_lines[-1] == ""):
+                  continue
+              clean_lines.append(line)
+              
+          upstream_rules = "\n".join(clean_lines).strip()
+          
+          # 2. 读取你的本地文件
+          if not os.path.exists(target_file):
+              print(f"Error: Target file {target_file} not found!")
+              sys.exit(1)
+              
+          with open(target_file, 'r', encoding='utf-8') as f:
+              local_content = f.read()
+              
+          marker = "# My Rules"
+          if marker not in local_content:
+              print(f"Error: Marker '{marker}' not found in target file!")
+              sys.exit(1)
+              
+          # 3. 以 # My Rules 为界进行切割，保留它和它下面的所有内容
+          my_rules_part = local_content[local_content.find(marker):]
+          
+          # 4. 组装新文件内容
+          header = "# AI分流\n# 来源订阅: \n# " + "\n# ".join(urls) + "\n\n"
+          final_content = f"{header}{upstream_rules}\n\n\n{my_rules_part}\n"
+          
+          # 5. 覆盖写入
+          with open(target_file, 'w', encoding='utf-8') as f:
+              f.write(final_content)
+              
+          print("Rules synced, deduplicated, and merged successfully.")
+          EOF
+          
+          # 执行 Python 脚本
+          python3 merge_script.py "$TARGET_FILE"
+          
+          # 删除临时脚本
+          rm merge_script.py
+
+      - name: Commit and Push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add Surge/Rules/AI.list
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto sync and deduplicate AI rules" && git push)
