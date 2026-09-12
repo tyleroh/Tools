@@ -1,7 +1,7 @@
 name: Sync Rules
 on:
   schedule:
-    - cron: '16 21 * * 6' # 北京时间每周日凌晨4点执行
+    - cron: '0 20 * * 6' # UTC时间，北京时间每周日凌晨4点执行
   workflow_dispatch: # 允许网页端手动点击运行
 
 permissions:
