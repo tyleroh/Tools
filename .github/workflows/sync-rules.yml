@@ -1,4 +1,4 @@
-name: Sync and Merge Rules
+name: Sync Rules
 on:
   schedule:
     - cron: '0 4 * * 0' # 北京时间每周日凌晨4点执行
