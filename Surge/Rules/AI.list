@@ -90,6 +90,8 @@ DOMAIN-SUFFIX, grok.com
 # Trae AI
 DOMAIN, trae-api-sg.mchost.guru
 DOMAIN-SUFFIX, trae.ai
+
+# Crypto
 DOMAIN,token-api.metaswap.codefi.network
 DOMAIN-SUFFIX,1inch.io
 DOMAIN-SUFFIX,1ml.com
@@ -301,6 +303,7 @@ DOMAIN-SUFFIX,museai.com
 DOMAIN-SUFFIX,ecto1.ai
 DOMAIN-SUFFIX,metaaivm.com
 DOMAIN-SUFFIX,agentrouter.org
+
 
 
 
