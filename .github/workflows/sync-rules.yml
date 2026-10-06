@@ -36,6 +36,14 @@ jobs:
           seen_rules = set()
           extracted_lines = []
           
+          # 需要屏蔽的无用元数据前缀（转大写匹配更安全）
+          ignore_prefixes = (
+              '# NAME:', '# AUTHOR:', '# REPO:', '# UPDATED:', '# TOTAL:', 
+              '# DOMAIN:', '# DOMAIN-KEYWORD:', '# DOMAIN-SUFFIX:', 
+              '# IP-CIDR:', '# IP-CIDR6:', '# IP-ASN:', '# USER-AGENT:', 
+              '# PROCESS-NAME:', '# URL-REGEX:'
+          )
+          
           # 1. 遍历所有链接，获取并去重
           for url in urls:
               try:
@@ -56,8 +64,12 @@ jobs:
                       else:
                           in_header = False
                       
-                      # 如果是注释（如分类标签 # OpenAI），直接保留
+                      # 处理注释行
                       if line.startswith('#'):
+                          # 如果匹配到仓库常见的元数据前缀，则跳过
+                          if line.upper().startswith(ignore_prefixes):
+                              continue
+                          # 保留正常的分类标签（如 # AI）
                           extracted_lines.append(line)
                       else:
                           # 核心去重逻辑：如果这条规则没见过，才加入列表
