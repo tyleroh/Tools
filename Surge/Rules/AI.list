@@ -90,14 +90,6 @@ DOMAIN-SUFFIX, grok.com
 # Trae AI
 DOMAIN, trae-api-sg.mchost.guru
 DOMAIN-SUFFIX, trae.ai
-# NAME: Crypto
-# AUTHOR: blackmatrix7
-# REPO: https://github.com/blackmatrix7/ios_rule_script
-# UPDATED: 2025-06-06 09:20:01
-# DOMAIN: 1
-# DOMAIN-KEYWORD: 4
-# DOMAIN-SUFFIX: 196
-# TOTAL: 201
 DOMAIN,token-api.metaswap.codefi.network
 DOMAIN-SUFFIX,1inch.io
 DOMAIN-SUFFIX,1ml.com
@@ -309,5 +301,6 @@ DOMAIN-SUFFIX,museai.com
 DOMAIN-SUFFIX,ecto1.ai
 DOMAIN-SUFFIX,metaaivm.com
 DOMAIN-SUFFIX,agentrouter.org
+
 
 
