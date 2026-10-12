@@ -6,7 +6,7 @@
 
 | 脚本 | 说明 | 环境变量 | 建议定时 |
 |---|---|---|---|
-| `yadea_signin.py` | 雅迪智行每日签到（含积分/连续签到天数查询） | `YADEA_TOKEN` | `30 7 * * *` |
+| `yadea_signin.py` | 雅迪智行每日签到（含积分/连续签到天数查询，结果推送青龙通知渠道） | `YADEA_TOKEN` | `30 7 * * *` |
 
 ## 使用说明
 
@@ -25,3 +25,14 @@
 ## 抓包提示
 
 抓取 App（`YadeaApp/8.8.10`）对 `tspapph5.yadeaiot.com.cn` 的任意请求，复制请求头 `Authorization` 中 `Bearer ` 之后的部分。
+
+## 通知（Telegram 收不到？）
+
+脚本用青龙内置 `notify` 模块推送，**必须在青龙里配好通知渠道**才会收到消息：
+
+1. 系统设置 → 通知设置 → 添加 → 选 Telegram → 填 `Bot Token` 与 `User ID` → 保存后点「测试」。
+   - `User ID` 必须是**数字 chat_id**（群组为负数），不是 `@username`。
+   - 获取方法：先给机器人发一条 `/start`，再访问
+     `https://api.telegram.org/bot<TOKEN>/getUpdates`，取 `result[].message.chat.id`。
+2. 或在环境变量里加 `TG_BOT_TOKEN`、`TG_USER_ID`。
+3. 渠道必须处于**启用**状态；脚本不调用 `notify.send()` 则不会有任何推送。

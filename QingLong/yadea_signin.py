@@ -19,7 +19,7 @@ import requests
 
 try:
     from Crypto.Cipher import AES  # pycryptodome
-except ImportError:  # 回退
+except ImportError:  # 回退到 cryptography
     from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
     class AES:  # noqa: N801  —— 兼容垫片
@@ -45,11 +45,22 @@ class _CryptographyAES:
         return c.update(data) + c.finalize()
 
 
+try:  # 青龙内置通知模块，本地运行时会 ImportError
+    from notify import send as _notify
+except Exception:
+    _notify = None
+
 AES_KEY = b'RFC1J02e116b45a0'          # 16 字节 -> AES-128-ECB
 GATEWAY_APP_ID = 'cfb00038ddac4c9ebc85821694bbd3fa'
 BASE = 'https://tspapph5.yadeaiot.com.cn/prod-wg/api/app/userappruleinfo'
 UA = ('Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 '
       '(KHTML, like Gecko) Mobile/15E148 YadeaApp/8.8.10')
+REPORT = []                            # 汇总给通知用
+
+
+def log(msg):
+    print(msg)
+    REPORT.append(str(msg))
 
 
 # ---------------- 加密工具 ----------------
@@ -79,7 +90,6 @@ def aes_decrypt(b64: str) -> str:
 def decrypt_resp(text: str) -> str:
     """响应体是 urlencode 过的 base64 密文"""
     text = urllib.parse.unquote(text.strip().strip('"'))
-    text = text.replace(' ', '+') if '\n' in text else text
     return aes_decrypt(text)
 
 
@@ -116,8 +126,7 @@ def check_in(token: str, index: int):
     # 1. 签到
     try:
         r = s.get(BASE + '/addsigninbyuseridNew', headers=make_headers(token), timeout=20)
-        sign_msg = ''
-        code = ''
+        sign_msg, code = '', ''
         try:
             j = json.loads(decrypt_resp(r.text))
             code = str(_pick(j, 'code') or '')
@@ -126,11 +135,11 @@ def check_in(token: str, index: int):
             m = re.search(r'msg\\?"?\s*:\s*\\?"?([^"\\]+)', r.text)
             sign_msg = m.group(1) if m else r.text[:80]
         if code and code not in ('000000', '120168'):
-            print('%s签到失败: %s (%s)' % (tag, sign_msg or '未知', code))
+            log('%s签到失败: %s (%s)' % (tag, sign_msg or '未知', code))
         else:
-            print('%s签到: %s' % (tag, sign_msg or '已提交'))
+            log('%s签到: %s' % (tag, sign_msg or '已提交'))
     except Exception as e:
-        print('%s签到请求异常: %s' % (tag, e))
+        log('%s签到请求异常: %s' % (tag, e))
 
     # 2. 查询积分概况
     try:
@@ -146,28 +155,43 @@ def check_in(token: str, index: int):
         nick = _pick(j, 'nickName')
         uid = _pick(j, 'userId')
         if integral is None:  # 兜底正则
-            g = lambda k: (re.search(k + r'\\?"?\s*:\s*\\?"?([^"\\,}]+)', body) or [None, None])[1]
+            def g(k):
+                m = re.search(k + r'\\?"?\s*:\s*\\?"?([^"\\,}]+)', body)
+                return m.group(1) if m else None
             integral, signin_day = g('integral'), g('signinDay')
             is_signin, nick, uid = g('isSignin'), g('nickName'), g('userId')
         if integral is None:
-            print('%s积分查询失败: %s' % (tag, _pick(j, 'msg') or body[:100]))
+            log('%s积分查询失败: %s' % (tag, _pick(j, 'msg') or body[:100]))
             return
         state = '今日已签到' if str(is_signin) == '0' else '今日未签到'
-        print('%s用户: %s（ID: %s）｜总积分 %s 分｜连续签到 %s 天｜%s'
-              % (tag, nick, uid, integral, signin_day, state))
+        log('%s用户: %s（ID: %s）｜总积分 %s 分｜连续签到 %s 天｜%s'
+            % (tag, nick, uid, integral, signin_day, state))
     except Exception as e:
-        print('%s积分查询异常: %s' % (tag, e))
+        log('%s积分查询异常: %s' % (tag, e))
 
 
 def main():
     raw = (os.getenv('YADEA_TOKEN') or os.getenv('yadea_token') or '').strip()
     if not raw:
-        print('未找到环境变量 YADEA_TOKEN，请先添加后再运行')
-        return
+        log('未找到环境变量 YADEA_TOKEN，请先添加后再运行')
+        return notify()
     tokens = [t.strip() for t in re.split(r'[\n&,;]', raw) if t.strip()]
-    print('共 %d 个账号' % len(tokens))
+    log('共 %d 个账号' % len(tokens))
     for i, t in enumerate(tokens, 1):
         check_in(t, i)
+    notify()
+
+
+def notify():
+    """推送到青龙已启用的通知渠道（Telegram / 企业微信 / Bark 等）"""
+    if _notify is None:
+        print('[通知] 未检测到青龙 notify 模块，跳过推送')
+        return
+    try:
+        _notify('雅迪智行签到', '\n'.join(REPORT))
+        print('[通知] 已推送')
+    except Exception as e:
+        print('[通知] 推送失败: %s' % e)
 
 
 if __name__ == '__main__':
