@@ -4,7 +4,7 @@
 雅迪智行 每日签到  —— 青龙面板脚本
 来源: https://github.com/qd-today/templates/blob/master/雅迪智行每日签到.har
 cron: 30 7 * * *
-new Env('雅迪智行每日签到');
+new Env('雅迪智行签到');
 环境变量: YADEA_TOKEN   (Bearer 后面的那串 token，多账号用 & 或换行分隔)
 依赖: requests  (+ pycryptodome 或 cryptography)
 """
