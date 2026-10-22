@@ -2,7 +2,7 @@
 #!desc=Reflect 10.7.0.1 back to this device for on-device developer tools.
 
 [General]
-ipv6-vif = disabled
+ipv6-vif = auto
 tun-included-routes = %INSERT% 10.7.0.1/32
 
 [IP Rewrite]
