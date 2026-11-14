@@ -1,0 +1,13 @@
+#!name=本机开发服务回环
+#!desc=参考文档：https://nsloon.app/docs/General/#include-tun
+#!icon=https://raw.githubusercontent.com/ios151/Rewrite/refs/heads/main/dev-loopback/modules/dev-loopback.png
+#!author=tyler
+#!homepage=https://nsloon.app/docs/General/#include-tun
+#!loon_version=3.5.3(1007)
+
+[General]
+ipv6-vif = auto
+include-tun = 10.7.0.1/32
+
+[IP Rewrite]
+10.7.0.1 = reflect
