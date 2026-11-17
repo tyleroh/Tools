@@ -1,0 +1,13 @@
+#!name = 财新文章解锁
+#!desc = 只解锁文章
+#!icon = https://file.caixin.com/file/weixin/cx_logo.jpg
+
+[Rule]
+DOMAIN-SUFFIX,gg.caixin.com,REJECT
+
+[Script]
+http-response ^https://mappsv5\.caixin\.com/articlev5/\d+/\d+\.html script-path=https://raw.githubusercontent.com/tyleroh/Tools/main/Surge/Module/caixin/caixin-article.js, requires-body=true, timeout=30, tag=文章正文
+http-response ^https://gateway\.caixin\.com/api/app-api/auth/newValidate$ script-path=https://raw.githubusercontent.com/tyleroh/Tools/main/Surge/Module/caixin/caixin-vip.js, requires-body=true, timeout=10, tag=文章权限
+
+[MITM]
+hostname = mappsv5.caixin.com, gateway.caixin.com
