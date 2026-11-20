@@ -1,13 +1,26 @@
 #!name = 财新文章解锁
-#!desc = 只解锁文章
+#!desc = 解锁文章正文与收听功能
 #!icon = https://file.caixin.com/file/weixin/cx_logo.jpg
 
 [Rule]
-DOMAIN-SUFFIX,gg.caixin.com,REJECT
+DOMAIN,dolphin.caixin.com,REJECT
+DOMAIN,gg.caixin.com,REJECT
 
 [Script]
 http-response ^https://mappsv5\.caixin\.com/articlev5/\d+/\d+\.html script-path=https://raw.githubusercontent.com/tyleroh/Tools/main/Surge/Module/caixin/caixin-article.js, requires-body=true, timeout=30, tag=文章正文
+http-response ^https://mini\.caixin\.com/(m/)?\d{4}-\d{2}-\d{2}/\d+\.html script-path=https://raw.githubusercontent.com/tyleroh/Tools/main/Surge/Module/caixin/caixin-article.js, requires-body=true, timeout=30, tag=mini文章正文
 http-response ^https://gateway\.caixin\.com/api/app-api/auth/newValidate$ script-path=https://raw.githubusercontent.com/tyleroh/Tools/main/Surge/Module/caixin/caixin-vip.js, requires-body=true, timeout=10, tag=文章权限
+http-response ^https://gateway\.caixin\.com/api/app-api/auth/validateAudioAuth$ script-path=https://raw.githubusercontent.com/tyleroh/Tools/main/Surge/Module/caixin/caixin-audio.js, requires-body=true, timeout=25, tag=音频解锁
+http-response ^https://deepview-dynamic\.caixin\.com/api/topic/config/(event|topic)/ script-path=https://raw.githubusercontent.com/tyleroh/Tools/main/Surge/Module/caixin/caixin-deepview.js, requires-body=true, timeout=10, tag=deepview配置
+
+[Rewrite]
+# 财新去广告，来源 https://t.me/Aa28413761/2067
+request if ${url} ~= /^https:\/\/cxdata\.caixin\.com\/api\/dataplus\/stkData\/list/i then reject_dict(200)
+request if ${url} ~= /^https:\/\/entities\.caixin\.com\/api\/public\/push\/appIndex\?target=index/i then reject_dict(200)
+request if ${url} ~= /^https:\/\/gateway\.caixin\.com\/api\/app-api\/search\/getkeyword/i then reject_dict(200)
+request if ${url} ~= /^https:\/\/gateway\.caixin\.com\/api\/app-api\/caixinminiapp\/appinfo/i then reject_dict(200)
+request if ${url} ~= /^https:\/\/gateway\.caixin\.com\/api\/app-api\/articlesHotRecommend\/getHotRecommendArticles/i then reject_dict(200)
+request if ${url} ~= /^https:\/\/www\.caixin\.com\/ai\/question.+/i then reject_dict(200)
 
 [MITM]
-hostname = mappsv5.caixin.com, gateway.caixin.com
+hostname = mappsv5.caixin.com, gateway.caixin.com, mini.caixin.com, cxdata.caixin.com, entities.caixin.com, www.caixin.com, deepview-dynamic.caixin.com
